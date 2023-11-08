@@ -1,11 +1,25 @@
+import { useEffect, useState } from "react"
 import { trustedBy } from "../../../Constants/api"
 import Footer from "../Footer/Footer"
 import Header from "../Header/Header"
+import { getLatest } from "../../../Services/post"
+import moment from "moment"
 
 const Landing = () => {
+
+    const [latest, setLatest] = useState([])
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const response = await getLatest()
+            setLatest(response)
+        }
+        fetchData()
+    }, [])
+
     return (
         <>
-            <Header role={null}/>
+            <Header/>
             <div className="mt-16 px-2 md:px-10 grid grid-cols-2 bg-main">
                 <div className="flex md:justify-start items-center col-span-2 md:col-span-1 justify-center">
                     <div className="text-center">
@@ -35,9 +49,16 @@ const Landing = () => {
                 <h2 className="font-bold font-primary text-center mt-5 text-2xl text-gray-800">Latest Jobs ( <span className=" text-purple-800">Featured</span> )</h2>
                 <div className="flex justify-center flex-wrap flex-row gap-5 mt-5">
                     {
-                        [1,2,3,4].map(item => {
+                        latest?.map(item => {
                             return (
-                                <div className="w-72 h-36 bg-gray-300 shadow shadow-gray-500 rounded-2xl"></div>
+                                <div key={item} className="shadow shadow-gray-500 w-64 p-2 rounded-2xl">
+                                    <img src="./thambnailJob.png" className="w-64 rounded-t-2xl"/>
+                                    <div>
+                                        <p className="text-lg text-gray-700">{item.title.length > 20 ? item.title.slice(0,20)+"..." : item.title.slice(0,25)}</p>
+                                        <p>₹{item.minPay} - ₹{item.maxPay}</p>
+                                        <p className="text-sm">Posted: {moment(item.createdAt).fromNow()}</p>
+                                    </div>
+                                </div>
                             )
                         })
                     }

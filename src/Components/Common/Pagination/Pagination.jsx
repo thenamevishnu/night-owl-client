@@ -1,0 +1,20 @@
+import React from 'react'
+
+const Pagination = ({ count , updatePage}) => {
+
+    return (
+        <div className='flex justify-center mt-5 gap-3 mb-4'>
+            {
+                count.map((item, index) => {
+                    return(
+                        <div onClick={() => updatePage(index+1)} key={index} className='w-8 cursor-pointer h-8 flex justify-center items-center bg-purple-900 bg-opacity-80 text-white rounded-full shadow shadow-gray-500'>
+                            {index+1}
+                        </div>
+                    )
+                })
+            }
+        </div>
+    )
+}
+
+export default Pagination
