@@ -12,8 +12,8 @@ export const validateJobPost = async (postData) => {
             toast.error("Min pay should be a numeric")
         }else if(isNaN(postData.maxPay)){
             toast.error("Max pay should be a numeric")
-        }else if(postData.minPay >= postData.maxPay){
-            toast.error("Min pay should be a less than max pay")
+        }else if(postData.minPay - postData.maxPay > 0){
+            toast.error("Min pay should be a less than max pay "+postData.minPay+" "+postData.maxPay)
         }else{
             postData.minPay = parseFloat(postData.minPay)
             postData.maxPay = parseFloat(postData.maxPay)
@@ -77,6 +77,46 @@ export const getLatest = async () => {
             toast.error(data.message)
         }else if(data.statusCode==200){
             return data.message
+        }
+        return false
+    }catch(e){
+        toast.error(e.message)
+        return
+    }
+}
+
+export const saveJob = async (job_id, user_id) => {
+    try{
+        const {data} = await api.post(`/save-job`, {job_id, user_id})
+        if(data.statusCode == 409){
+            toast.error(data.message)
+        }else if(data.statusCode==500){
+            toast.error(data.message)
+        }else if(data.statusCode==401){
+            toast.error(data.message)
+        }else if(data.statusCode==200){
+            toast.success(data.message)
+            return true
+        }
+        return false
+    }catch(e){
+        toast.error(e.message)
+        return
+    }
+}
+
+export const sendProposal = async (job_id, user_id) => {
+    try{
+        const {data} = await api.post(`/send-proposal`, {job_id, user_id})
+        if(data.statusCode == 409){
+            toast.error(data.message)
+        }else if(data.statusCode==500){
+            toast.error(data.message)
+        }else if(data.statusCode==401){
+            toast.error(data.message)
+        }else if(data.statusCode==200){
+            toast.success(data.message)
+            return true
         }
         return false
     }catch(e){

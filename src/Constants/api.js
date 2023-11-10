@@ -12,6 +12,6 @@ export const regex = {
     emailRegex : /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.\-_]+\.[a-zA-Z]{2,}$/i,
     password : /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,16}$/i,
     confirm : /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,16}$/i,
-    title: /^[a-zA-Z0-9][\W\w]{9,79}$/i,
+    title: /^[a-zA-Z0-9][\W\w]{9,254}$/i,
     description: /^[a-zA-Z0-9][\W\w]{9,4999}$/i
 }

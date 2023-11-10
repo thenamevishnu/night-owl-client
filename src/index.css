@@ -14,6 +14,11 @@ body::-webkit-scrollbar, .custom-scroll::-webkit-scrollbar{
     @apply font-primary;
 }
 
+::selection{
+    background-color: red;
+    color: white;
+}
+
 .loading {
     --speed-of-animation: 0.9s;
     --gap: 6px;

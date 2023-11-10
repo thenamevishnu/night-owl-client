@@ -3,10 +3,12 @@ import LandingPage from "./Pages/Common/LandingPage"
 import RegisterPage from "./Pages/Common/RegisterPage"
 import LoginPage from "./Pages/Common/LoginPage"
 import { Toaster } from "react-hot-toast"
-import { IsLoggedRoute } from "./ProtectedRoute"
+import { IsLoggedRoute, ProtectedClientRoute, ProtectedCommonRoute, ProtectedDevRoute } from "./ProtectedRoute"
 import JobsPage from "./Pages/Client/JobsPage"
 import PostJobPage from "./Pages/Developer/PostJobPage"
 import ViewJobPage from "./Pages/Client/ViewJobPage"
+import NotFound404 from "./Components/Common/NotFound404"
+import SettingsPage from "./Pages/Common/SettingsPage"
 
 const App = () => {
 
@@ -19,10 +21,14 @@ const App = () => {
                     <Route path="/register" element={<IsLoggedRoute><RegisterPage/></IsLoggedRoute>} />
                     <Route path="/login" element={<IsLoggedRoute><LoginPage/></IsLoggedRoute>} />
                     
-                    <Route path="/jobs" element={<JobsPage/>}/>
-                    <Route path="/view-job" element={<ViewJobPage/>} />
+                    <Route path="/settings" element={<ProtectedCommonRoute><SettingsPage/></ProtectedCommonRoute>} />
 
-                    <Route path="/post-job" element={<PostJobPage/>} />
+                    <Route path="/jobs" element={<ProtectedDevRoute><JobsPage/></ProtectedDevRoute>}/>
+                    <Route path="/view-job" element={<ProtectedDevRoute><ViewJobPage/></ProtectedDevRoute>} />
+
+                    <Route path="/post-jobs" element={<ProtectedClientRoute><PostJobPage/></ProtectedClientRoute>} />
+
+                    <Route path="*" element={<NotFound404/>} />
 
                 </Routes>
             </BrowserRouter>

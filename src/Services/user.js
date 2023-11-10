@@ -73,7 +73,7 @@ export const googleSignUp = async (userData, response) => {
         userData.password = null
         userData.confirm = null
         userData.picture = response.picture
-        userData.is_google = false
+        userData.is_google = true
         const {data} = await api.post(`/register`, {userData})
         if(data.statusCode == 500){
             toast.error(data.message)
@@ -95,6 +95,7 @@ export const googleSignUp = async (userData, response) => {
 export const googleSignIn = async (userData, response) => {
     try{
         userData.email = response.email
+        userData.is_google = true
         userData.password = null
         const {data} = await api.post(`/google-login`, {userData})
         if(data.statusCode == 500){
@@ -140,6 +141,7 @@ export const isAuthenticated = () => {
 }
 
 export const getGoogleProfile = async (token_type, token) => {
+    console.log(token_type, token);
     const {data} = await axios.get(import.meta.env.VITE_GOOGLE_USER_INFO, {headers: { Authorization: `${token_type} ${token}` }})
     return data
 }

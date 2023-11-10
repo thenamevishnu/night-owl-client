@@ -4,6 +4,7 @@ import Footer from "../Footer/Footer"
 import Header from "../Header/Header"
 import { getLatest } from "../../../Services/post"
 import moment from "moment"
+import * as number_format from "millify"
 
 const Landing = () => {
 
@@ -51,11 +52,11 @@ const Landing = () => {
                     {
                         latest?.map(item => {
                             return (
-                                <div key={item} className="shadow shadow-gray-500 w-64 p-2 rounded-2xl">
+                                <div key={item._id} className="shadow shadow-gray-500 w-64 p-2 rounded-2xl">
                                     <img src="./thambnailJob.png" className="w-64 rounded-t-2xl"/>
                                     <div>
                                         <p className="text-lg text-gray-700">{item.title.length > 20 ? item.title.slice(0,20)+"..." : item.title.slice(0,25)}</p>
-                                        <p>₹{item.minPay} - ₹{item.maxPay}</p>
+                                        <p>₹{number_format.millify(item.minPay)} - ₹{number_format.millify(item.maxPay)}</p>
                                         <p className="text-sm">Posted: {moment(item.createdAt).fromNow()}</p>
                                     </div>
                                 </div>
